@@ -1,0 +1,44 @@
+This file contains message digests of all files listed in MANIFEST,
+signed via the Module::Signature module, version 0.55.
+
+To verify the content in this distribution, first make sure you have
+Module::Signature installed, then type:
+
+    % cpansign -v
+
+It will check each file's integrity, as well as the signature's
+validity.  If "==> Signature verified OK! <==" is not displayed,
+the distribution may already have been compromised, and you should
+not run its Makefile.PL or Build.PL.
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+SHA1 3ab9089c871e427541600167e9043ce208016312 .gitignore
+SHA1 67e476117bcfb2bb6d4d9711d04b12664863614b MANIFEST
+SHA1 38d84c86a5aadb1bbbab7db05afc0c9b06ca08ec META.yml
+SHA1 288a77216fa857e407d1211edb77f37ce7c0aa09 Makefile.PL
+SHA1 b89610c396939567f803757cc1a7e0669a92b169 README
+SHA1 603bb9de29fb8cba7f13409c546750972eff645d inc/Module/AutoInstall.pm
+SHA1 f0577f8f88a6703e9bca2d10196cfd293f3d6f2f inc/Module/Install.pm
+SHA1 b2a2c9b6cb4b1bcd119825acc707f45946d8b126 inc/Module/Install/AutoInstall.pm
+SHA1 5d574849849860b8cf06035cc6f1a306c66cb326 inc/Module/Install/Base.pm
+SHA1 c30f50bc2a1542dff17f84a54d9316f3c3c6299e inc/Module/Install/Can.pm
+SHA1 9b618efcd783f6ed4bab84fa22b31886fcc38d57 inc/Module/Install/Fetch.pm
+SHA1 808d4b2d764185a34c89e675bb4eaad18c075b14 inc/Module/Install/Include.pm
+SHA1 cd14c8de2a67b0f14df9bc20c27f3edabd359d1b inc/Module/Install/Makefile.pm
+SHA1 a2162aec678d21988fce47ab805cf01773196292 inc/Module/Install/Metadata.pm
+SHA1 4ae5d56e11e640bd9520634dde6d563926f6d98a inc/Module/Install/Win32.pm
+SHA1 587cc94b52b640fe2d4972253b6369aa951e2210 inc/Module/Install/WriteAll.pm
+SHA1 2b49ae962083abf0844fce5618a539979841b3d5 lib/Beanstalk/Client.pm
+SHA1 fdf0fcaff0db9f0a4713e0c246b1d62cfcd910a1 lib/Beanstalk/Job.pm
+SHA1 289906f4bdf2ca070da7c1a124b679a92b462975 lib/Beanstalk/Pool.pm
+SHA1 9b725d6a9dfcea8e5aad37ae05ae0f431d572574 lib/Beanstalk/Stats.pm
+SHA1 4801952b0786f0ea687dc10adabb86765cd1fa23 t/00-client.t
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.9 (Darwin)
+
+iEUEARECAAYFAkjlYFwACgkQR0BL4gbYw3SB7wCYk7oIqpxlErYJyOcKrdhBM5zJ
+2QCfVQkXagT6Qz7sEwURpNW8OR0q5ZU=
+=HcM1
+-----END PGP SIGNATURE-----
