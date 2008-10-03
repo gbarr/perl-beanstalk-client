@@ -11,6 +11,7 @@ requires       'Socket';
 requires       'YAML::Syck';
 requires       'Carp';
 requires       'Error';
+requires       'Class::Accessor::Fast';
 
 resources  repository  => 'http://git.goingon.net/?p=Beanstalk-Client.git;a=summary';
 

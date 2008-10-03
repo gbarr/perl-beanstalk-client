@@ -15,6 +15,7 @@ no_index:
     - t
 requires:
   Carp: 0
+  Class::Accessor::Fast: 0
   Error: 0
   IO::Socket::INET: 0
   Socket: 0
