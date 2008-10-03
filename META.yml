@@ -12,6 +12,7 @@ name: Beanstalk-Client
 no_index:
   directory:
     - inc
+    - t
 requires:
   Carp: 0
   Error: 0
