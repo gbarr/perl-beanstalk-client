@@ -227,10 +227,10 @@ sub put {
   my $self = shift;
   my $opt  = shift || {};
 
-  my $pri   = exists $opt->{pri}   ? $opt->{pri}   : $self->priority;
-  my $ttr   = exists $opt->{ttr}   ? $opt->{ttr}   : $self->ttr;
-  my $delay = exists $opt->{delay} ? $opt->{delay} : $self->delay;
-  my $data  = exists $opt->{data}  ? $opt->{data}  : $self->encoder->(@_);
+  my $pri   = exists $opt->{priority} ? $opt->{priority} : $self->priority;
+  my $ttr   = exists $opt->{ttr}      ? $opt->{ttr}      : $self->ttr;
+  my $delay = exists $opt->{delay}    ? $opt->{delay}    : $self->delay;
+  my $data  = exists $opt->{data}     ? $opt->{data}     : $self->encoder->(@_);
 
   utf8::encode($data) if utf8::is_utf8($data);    # need bytes
 
@@ -345,8 +345,8 @@ sub release {
   my $id   = shift;
   my $opt  = shift || {};
 
-  my $pri   = exists $opt->{pri}   ? $opt->{pri}   : $self->priority;
-  my $delay = exists $opt->{delay} ? $opt->{delay} : $self->delay;
+  my $pri   = exists $opt->{priority} ? $opt->{priority} : $self->priority;
+  my $delay = exists $opt->{delay}    ? $opt->{delay}    : $self->delay;
 
   my @resp = _interact($self, "release $id $pri $delay")
     or return undef;
@@ -362,7 +362,7 @@ sub bury {
   my $id   = shift;
   my $opt  = shift || {};
 
-  my $pri = exists $opt->{pri} ? $opt->{pri} : $self->priority;
+  my $pri = exists $opt->{priority} ? $opt->{priority} : $self->priority;
 
   my @resp = _interact($self, "bury $id $pri")
     or return undef;

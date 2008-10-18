@@ -1,5 +1,5 @@
 
-use Test::More tests => 15;
+use Test::More tests => 16;
 
 use_ok('Beanstalk::Stats');
 use_ok('Beanstalk::Job');
@@ -52,6 +52,12 @@ SKIP: {
   );
   test_encoding($json_client, "JSON", "[1,2,[3,4]]", 1,2,[3,4]);
 }
+
+# test priority override
+$client->priority(9000);
+my $job = $client->put({priority => 9001}, "foo");
+$job = $job->peek;
+is(9001, $job->priority, "got the expected priority");
 
 sub test_encoding {
   my $client = shift;
