@@ -104,6 +104,7 @@ READ: while ($more > 0) {
     if ($read) {
       $offset += $read;
       $more -= $read;
+      last if $more == 0;
       redo READ;
     }
     else {
