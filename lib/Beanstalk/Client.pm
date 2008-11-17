@@ -308,7 +308,7 @@ sub reserve {
   my $self    = shift;
   my $timeout = shift;
 
-  my $cmd     = defined($timeout) ? "reserve" : "reserve-with-timeout $timeout";
+  my $cmd     = defined($timeout) ? "reserve-with-timeout $timeout" : "reserve";
   my @resp    = _interact($self, $cmd)
     or return undef;
 
