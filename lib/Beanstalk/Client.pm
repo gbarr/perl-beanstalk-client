@@ -340,6 +340,17 @@ sub delete {
   return undef;
 }
 
+sub touch {
+  my $self = shift;
+  my $id   = shift;
+  my @resp = _interact($self, "touch $id")
+    or return undef;
+  return 1 if $resp[0] eq 'TOUCHED';
+
+  $self->error(join ' ', @resp);
+  return undef;
+}
+
 
 sub release {
   my $self = shift;
@@ -626,6 +637,11 @@ These methods are used by clients that are placing work into the queue
 =item B<release ($id, [, $options])>
 
 =item B<bury ($id [, $options])>
+
+=item B<touch ($id)>
+
+Calling C<touch> with the id of a reserved job will reset the time left for the job to complete
+back to the original ttr value.
 
 =item B<watch ($tube)>
 

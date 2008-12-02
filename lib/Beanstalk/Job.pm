@@ -30,6 +30,15 @@ sub delete {
   $ret;
 }
 
+sub touch {
+  my $self = shift;
+
+  my $ret = $self->client->touch($self->id)
+    or $self->error($self->client->error);
+
+  $ret;
+}
+
 sub peek {
   my $self = shift;
 
@@ -149,6 +158,11 @@ methods available.
 =item B<delete>
 
 Tell the server to delete this job
+
+=item B<touch>
+
+Calling C<touch> on a reserved job will reset the time left for the job to complete
+back to the original ttr value.
 
 =item B<peek>
 
