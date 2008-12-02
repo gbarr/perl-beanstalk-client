@@ -6,13 +6,15 @@ use warnings;
 use Carp ();
 
 our $AUTOLOAD;
-our $VERSION = "1.00";
+our $VERSION = "1.01";
 
 sub new {
   my $proto = shift;
   my $href = shift;
   bless $href, $proto;
 }
+
+sub DESTROY { } 
 
 sub AUTOLOAD {
   (my $method = $AUTOLOAD) =~ s/.*:://;
