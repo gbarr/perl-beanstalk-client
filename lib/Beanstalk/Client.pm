@@ -477,6 +477,8 @@ sub list_tubes_watched {
 
 __END__
 
+=encoding utf-8
+
 =head1 NAME
 
 Beanstalk::Client - Client class to talk to beanstalkd server
@@ -1053,10 +1055,21 @@ L<Beanstalk::Pool>, L<Beanstalk::Job>, L<Beanstalk::Stats>
 
 Graham Barr <gbarr@pobox.com>
 
+=head1 CREDITS
+
+=over
+
+=item * Ask Bjørn Hansen
+
+=item * Rhesa Rozendaal
+
+=back
+
 =head1 COPYRIGHT
 
-Copyright (c) 2008 by Graham Barr. All rights reserved. This program
-is free software; you can redistribute it and/or modify it under
+Copyright (C) 2008 by Graham Barr.
+
+This program is free software; you can redistribute it and/or modify it under
 the same terms as Perl itself.
 
 =cut

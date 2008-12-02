@@ -70,8 +70,9 @@ Graham Barr <gbarr@pobox.com>
 
 =head1 COPYRIGHT
 
-Copyright (c) 2008 by Graham Barr. All rights reserved. This program
-is free software; you can redistribute it and/or modify it under
+Copyright (C) 2008 by Graham Barr.
+
+This program is free software; you can redistribute it and/or modify it under
 the same terms as Perl itself.
 
 =cut
