@@ -150,8 +150,8 @@ sub _peek {
     or return undef;
 
   if ($resp[0] eq 'FOUND') {
-    my $data = _recv_data($self, $resp[2])
-      or return undef;
+    my $data = _recv_data($self, $resp[2]);
+    return undef unless defined $data;
     return Beanstalk::Job->new(
       { id     => $resp[1],
         client => $self,
@@ -313,8 +313,8 @@ sub reserve {
     or return undef;
 
   if ($resp[0] eq 'RESERVED') {
-    my $data = _recv_data($self, $resp[2])
-      or return undef;
+    my $data = _recv_data($self, $resp[2]);
+    return undef unless defined $data;
 
     return Beanstalk::Job->new(
       { id     => $resp[1],
