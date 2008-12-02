@@ -22,4 +22,4 @@ requires:
   YAML::Syck: 0
 resources:
   repository: http://git.goingon.net/?p=Beanstalk-Client.git;a=summary
-version: 1.00
+version: 1.01

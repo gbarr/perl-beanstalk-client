@@ -1,0 +1,8 @@
+1.02 Tue Dec  2 11:12:51 CST 2008
+ * Do not call AUTOLOAD for DESTORY on Beanstalk::Client::Stats
+ * Do not treat zero-length data or "0" as an error
+ * Added support for touch command
+ * Fix backwards login glitch in reserve for reserve-with-timeout (Rhesa Rozendaal)
+ * Update reserve and buried flags on ::Job when job is deleted or released
+ * Fix prioity parameter to ->put (Ask Bjørn Hansen)
+ * Fix issue reserving jobs >1024 bytes (Ask Bjørn Hansen)
