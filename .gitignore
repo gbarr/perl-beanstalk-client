@@ -4,3 +4,4 @@ _test
 temp
 *.bak
 *.old
+.DS_Store
