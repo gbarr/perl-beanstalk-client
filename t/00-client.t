@@ -11,7 +11,7 @@ ok($client,"Create client");
 
 unless ($client->connect) {
 SKIP: {
-    skip("Need local beanstalkd server running", 11);
+    skip("Need local beanstalkd server running", 12);
   }
   exit(0);
 }
