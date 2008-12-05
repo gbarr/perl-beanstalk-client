@@ -5,7 +5,7 @@ use warnings;
 
 use base qw(Class::Accessor::Fast);
 
-our $VERSION = "1.01";
+our $VERSION = "1.02";
 
 __PACKAGE__->mk_accessors(
   qw(id client buried reserved data error)

@@ -1,4 +1,4 @@
-1.02
+1.02 Fri Dec  5 06:28:24 CST 2008
  * Fix skip count in tests when no local beanstalkd server is present
 
 1.01 Tue Dec  2 11:12:51 CST 2008

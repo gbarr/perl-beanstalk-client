@@ -6,7 +6,7 @@ use warnings;
 use Carp ();
 
 our $AUTOLOAD;
-our $VERSION = "1.01";
+our $VERSION = "1.02";
 
 sub new {
   my $proto = shift;
