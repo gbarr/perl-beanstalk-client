@@ -13,7 +13,7 @@ requires       'Carp';
 requires       'Error';
 requires       'Class::Accessor::Fast';
 
-resources  repository  => 'http://git.goingon.net/?p=Beanstalk-Client.git;a=summary';
+resources  repository  => 'http://github.com/gbarr/perl-beanstalk-client';
 
 auto_install_now();
 
