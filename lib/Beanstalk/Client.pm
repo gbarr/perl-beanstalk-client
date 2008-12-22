@@ -13,7 +13,7 @@ use Error;
 use Beanstalk::Job;
 use Beanstalk::Stats;
 
-our $VERSION = "1.02";
+our $VERSION = "1.03";
 
 # use namespace::clean;
 
@@ -35,6 +35,7 @@ BEGIN {
       socket
       ttr
       _watching
+      _using
       )
   );
 }
@@ -203,10 +204,21 @@ sub connect {
 
   $self->socket($sock);
 
-  $self->list_tubes_watched;
+  my $was_watching = $self->_watching;
+  my $was_using = $self->_using;
 
-  if (my $default_tube = $self->default_tube) {
+  $self->list_tubes_watched;
+  if ($was_watching) {
+    $self->watch_only(keys %$was_watching)
+      or return $self->disconnect;
+  }
+  elsif (my $default_tube = $self->default_tube) {
     $self->use($default_tube) && $self->watch_only($default_tube)
+      or return $self->disconnect;
+  }
+
+  if (defined $was_using) {
+    $self->use($was_using) 
       or return $self->disconnect;
   }
 
@@ -219,7 +231,6 @@ sub disconnect {
   if (my $sock = $self->socket) {
     close($sock);
   }
-  $self->_watching(undef);
   $self->socket(undef);
 }
 
@@ -297,7 +308,7 @@ sub use {
   my @resp = _interact($self, "use $tube")
     or return undef;
 
-  return $resp[1] if $resp[0] eq 'USING';
+  return $self->_using($resp[1]) if $resp[0] eq 'USING';
 
   $self->error(join ' ', @resp);
   return undef;

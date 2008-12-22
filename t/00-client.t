@@ -1,5 +1,5 @@
 
-use Test::More tests => 16;
+use Test::More tests => 22;
 
 use_ok('Beanstalk::Stats');
 use_ok('Beanstalk::Job');
@@ -11,7 +11,7 @@ ok($client,"Create client");
 
 unless ($client->connect) {
 SKIP: {
-    skip("Need local beanstalkd server running", 12);
+    skip("Need local beanstalkd server running", 18);
   }
   exit(0);
 }
@@ -58,6 +58,16 @@ $client->priority(9000);
 my $job = $client->put({priority => 9001}, "foo");
 $job = $job->peek;
 is(9001, $job->priority, "got the expected priority");
+
+$client->watch_only('foobar');
+is_deeply( [$client->list_tubes_watched], ['foobar'], 'watch_only');
+$client->watch_only('barfoo');
+is_deeply( [$client->list_tubes_watched], ['barfoo'], 'watch_only');
+is($client->use('foobar'), 'foobar', 'use');
+is($client->list_tube_used, 'foobar', 'list_tube_used');
+$client->disconnect;
+is_deeply( [$client->list_tubes_watched], ['barfoo'], 'watch_only after disconnect');
+is($client->list_tube_used, 'foobar', 'list_tube_used after disconnect');
 
 sub test_encoding {
   my $client = shift;
