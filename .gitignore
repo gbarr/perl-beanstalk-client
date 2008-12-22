@@ -5,3 +5,4 @@ temp
 *.bak
 *.old
 .DS_Store
+cover_db

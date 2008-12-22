@@ -328,9 +328,10 @@ sub reserve {
     return undef unless defined $data;
 
     return Beanstalk::Job->new(
-      { id     => $resp[1],
-        client => $self,
-        data   => $data,
+      { id       => $resp[1],
+        client   => $self,
+        reserved => 1,
+        data     => $data,
       }
     );
   }

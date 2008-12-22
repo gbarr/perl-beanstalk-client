@@ -21,3 +21,4 @@ META.yml
 README
 SIGNATURE
 t/00-client.t
+t/01-job.t
