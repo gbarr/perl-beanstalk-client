@@ -1,13 +1,27 @@
 
-use Test::More tests => 22;
+use Test::More tests => 23;
 
 use_ok('Beanstalk::Stats');
 use_ok('Beanstalk::Job');
 use_ok('Beanstalk::Client');
 
-my $client = Beanstalk::Client->new;
+{ package NoConnect;
+  @ISA = qw(Beanstalk::Client);
+  sub connect { return; }
+}
+
+my $client = NoConnect->new;
 
 ok($client,"Create client");
+
+is_deeply(
+  [$client->list_tubes_watched],
+  [],
+  "list_tubes_watched return empty list on error"
+);
+
+# Connect to server running on localhost
+$client = Beanstalk::Client->new;
 
 unless ($client->connect) {
 SKIP: {

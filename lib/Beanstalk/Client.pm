@@ -480,7 +480,7 @@ sub list_tube_used {
 sub list_tubes_watched {
   my $self = shift;
   my $ret = _interact_yaml_resp($self, "list-tubes-watched")
-    or return undef;
+    or return;
   $self->_watching( { map { ($_,1) } @$ret });
   @$ret;
 }
@@ -1043,8 +1043,9 @@ Returns the current tube being used. This is the tube which C<put> will place jo
 
 =item B<list_tubes_watched>
 
-Returns a list of tubes being watched. These are the tubes that C<reserve>
-will check to find jobs.
+Returns a list of tubes being watched, or the number of tubes being watched in a scalar context.
+These are the tubes that C<reserve> will check to find jobs. On error an empty list, or undef in
+a scalar context, will be returned.
 
 =back
 
