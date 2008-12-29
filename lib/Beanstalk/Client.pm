@@ -13,7 +13,7 @@ use Error;
 use Beanstalk::Job;
 use Beanstalk::Stats;
 
-our $VERSION = "1.03";
+our $VERSION = "1.04";
 
 # use namespace::clean;
 

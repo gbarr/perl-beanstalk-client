@@ -1,3 +1,7 @@
+1.04 Mon Dec 29 14:14:18 CST 2008
+ * Ensure watch_only does not crash if called before connect
+ * Ensure list_tubes_watched returns an empty list on error
+
 1.03 Mon Dec 22 16:09:39 CST 2008
  * Fix $job->reserve to return true for reserved jobs
  * Ensure that used tube and watched tube list is restored on reconnect
