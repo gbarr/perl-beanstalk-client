@@ -165,6 +165,14 @@ sub _peek {
   return undef;
 }
 
+sub __watching {
+  my $self = shift;
+  my $watching = $self->_watching;
+  return $watching if $watching;
+  $self->list_tubes_watched;
+  $self->_watching;
+}
+
 # use namespace::clean;
 
 sub new {
@@ -401,7 +409,7 @@ sub watch {
   my $self = shift;
   my $tube = shift;
 
-  my $watching = $self->_watching;
+  my $watching = $self->__watching or return undef;
   return scalar keys %$watching if $watching->{$tube};
 
   my @resp = _interact($self, "watch $tube")
@@ -421,7 +429,7 @@ sub ignore {
   my $self = shift;
   my $tube = shift;
 
-  my $watching = $self->_watching;
+  my $watching = $self->__watching or return undef;
   return scalar keys %$watching unless $watching->{$tube};
 
   my @resp = _interact($self, "ignore $tube")
@@ -439,7 +447,8 @@ sub ignore {
 
 sub watch_only {
   my $self = shift;
-  my %watched = %{ $self->_watching };
+  my $watching = $self->__watching or return undef;
+  my %watched = %$watching;
   my $ret;
   foreach my $watch (@_) {
     next if delete $watched{$watch};
@@ -448,7 +457,7 @@ sub watch_only {
   foreach my $ignore (keys %watched) {
     $ret = $self->ignore($ignore) or return undef;
   }
-  return $ret || scalar keys %{ $self->_watching };
+  return $ret || scalar keys %$watching;
 }
 
 
