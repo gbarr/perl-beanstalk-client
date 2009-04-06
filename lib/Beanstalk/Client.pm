@@ -13,7 +13,7 @@ use Error;
 use Beanstalk::Job;
 use Beanstalk::Stats;
 
-our $VERSION = "1.04";
+our $VERSION = "1.05";
 
 # use namespace::clean;
 
@@ -63,8 +63,8 @@ WRITE: {
       redo WRITE if $offset < length($cmd);
     }
     else {
-      redo WRITE if $!{EINTR};
       $self->error("$!");
+      redo WRITE if $!{EINTR} and fileno($sock);
       return $self->disconnect;
     }
   }
@@ -83,8 +83,8 @@ READ: {
       redo READ;
     }
     else {
-      redo READ if $!{EINTR};
       $self->error("$!");
+      redo READ if $!{EINTR} and fileno($sock);
     }
   }
   $self->disconnect;
