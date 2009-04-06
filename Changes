@@ -1,3 +1,6 @@
+1.05 Mon Apr  6 15:32:11 CDT 2009
+ * Do not restart read/write if socket has been closed
+
 1.04 Mon Dec 29 14:14:18 CST 2008
  * Ensure watch_only does not crash if called before connect
  * Ensure list_tubes_watched returns an empty list on error
