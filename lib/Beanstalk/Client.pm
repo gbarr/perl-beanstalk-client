@@ -8,7 +8,6 @@ use base qw(Class::Accessor::Fast);
 use YAML::Syck;
 use Socket;
 use IO::Socket::INET;
-use Error;
 
 use Beanstalk::Job;
 use Beanstalk::Stats;

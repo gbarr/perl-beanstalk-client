@@ -10,7 +10,6 @@ requires       'IO::Socket::INET';
 requires       'Socket';
 requires       'YAML::Syck';
 requires       'Carp';
-requires       'Error';
 requires       'Class::Accessor::Fast';
 
 resources  repository  => 'http://github.com/gbarr/perl-beanstalk-client';
