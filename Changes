@@ -1,3 +1,9 @@
+1.06 -- Fri Dec 11 11:00:10 CST 2009
+
+  * Remove requirement of Error as we do not use it
+  * Add quit and pause_tube methods
+  * Update documentation
+
 1.05 Mon Apr  6 15:32:11 CDT 2009
  * Do not restart read/write if socket has been closed
 

@@ -12,7 +12,7 @@ use IO::Socket::INET;
 use Beanstalk::Job;
 use Beanstalk::Stats;
 
-our $VERSION = "1.05";
+our $VERSION = "1.06";
 
 # use namespace::clean;
 

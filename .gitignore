@@ -6,3 +6,6 @@ temp
 *.old
 .DS_Store
 cover_db
+.*.swp
+SIGNATURE
+META.yml
