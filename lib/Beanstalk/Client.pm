@@ -241,6 +241,11 @@ sub disconnect {
   $self->socket(undef);
 }
 
+sub quit {
+  shift->disconnect;
+  return 1;
+}
+
 
 sub put {
   my $self = shift;
@@ -493,6 +498,19 @@ sub list_tubes_watched {
   @$ret;
 }
 
+
+sub pause_tube {
+  my $self = shift;
+  my $tube = shift;
+  my $delay= shift || 0;
+  my @resp = _interact($self, "pause-tube $tube $delay")
+    or return undef;
+  return 1 if $resp[0] eq 'PAUSED';
+
+  $self->error(join ' ', @resp);
+  return undef;
+}
+
 1;
 
 __END__
@@ -686,6 +704,10 @@ a C<default_tube> was specified.
 
 Disconnect from server. C<socket> method will return undef.
 
+=item B<quit>
+
+Disconnect from server. C<socket> method will return undef.
+
 =item B<peek ($id)>
 
 Peek at the job id specified. If the job exists returns a L<Beanstalk::Job> object. Returns
@@ -834,7 +856,21 @@ B<current_waiting> -
 The number of open connections that have issued a
 reserve command while watching this tube but not yet received a response.
 
+=item *
 
+B<pause> -
+The number of seconds the tube has been paused for.
+ 
+=item *
+
+B<cmd_pause_tube> -
+The cumulative number of pause-tube commands for this tube.
+ 
+=item *
+
+B<pause_time_left> -
+The number of seconds until the tube is un-paused.
+ 
 =back
 
 
@@ -966,6 +1002,11 @@ commands.
 
 =item *
 
+B<cmd_pause_tube> -
+The cumulative number of pause-tube commands
+
+=item *
+
 B<job_timeouts> -
 The cumulative count of times a job has timed out.
 
@@ -1054,6 +1095,12 @@ Returns the current tube being used. This is the tube which C<put> will place jo
 Returns a list of tubes being watched, or the number of tubes being watched in a scalar context.
 These are the tubes that C<reserve> will check to find jobs. On error an empty list, or undef in
 a scalar context, will be returned.
+
+=item B<pause_tube ($tube, $delay)>
+
+Pause from reserving any jobs in C<$tube> for C<$delay> seconds.
+
+Returns true on success and C<undef> on error.
 
 =back
 
