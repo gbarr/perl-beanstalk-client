@@ -225,7 +225,7 @@ sub connect {
   }
 
   if (defined $was_using) {
-    $self->use($was_using) 
+    $self->use($was_using)
       or return $self->disconnect;
   }
 
@@ -626,7 +626,7 @@ return a string representation to pass to the server. (Default: YAML::Syck::Dump
 Set/get the serialization decoder. C<$decoder> is a reference to a
 subroutine that will be called when data from the beanstalkd server needs to be
 decoded. The subroutine will be passed the data fetched from the beanstalkd
-server and should return a list of values the application can use. 
+server and should return a list of values the application can use.
 (Default: YAML::Syck::Load)
 
 =item B<error>
@@ -662,7 +662,43 @@ These methods are used by clients that are placing work into the queue
 
 =item B<put ($options [, @args])>
 
+Insert job into the currently used tube. Options may be
+
+=over
+
+=item priority
+
+priority to use to queue the job.
+Jobs with smaller priority values will be
+scheduled before jobs with larger priorities. The most urgent priority is 0
+
+Defaults to C<$self->priority>
+
+=item delay
+
+An integer number of seconds to wait before putting the job in
+   the ready queue. The job will be in the "delayed" state during this time
+
+Defaults to C<$self->delay>
+
+=item ttr
+
+"time to run" - An integer number of seconds to allow a worker
+to run this job. This time is counted from the moment a worker reserves
+this job. If the worker does not delete, release, or bury the job within
+C<ttr> seconds, the job will time out and the server will release the job.
+The minimum ttr is 1. If the client sends 0, the server will silently
+increase the ttr to 1.
+
+=item data
+
+The job body. Defaults to the result of calling the current encoder passing C<@args>
+
+=back
+
 =item B<use ($tube)>
+
+Change tube that new jobs are inserted into
 
 =back
 
@@ -672,11 +708,50 @@ These methods are used by clients that are placing work into the queue
 
 =item B<reserve ([$timeout])>
 
+Reserve a job from the list of tubes currently being watched.
+
+Returns a L<Beanstalk::Job> on success. C<$timeout> is the maximum number
+of seconds to wait for a job to become ready. If C<$timeout> is not given then the client
+will wait indefinitely.
+
+Returns undef on error or if C<$timeout> expires.
+
 =item B<delete ($id)>
+
+Delete the specified job.
 
 =item B<release ($id, [, $options])>
 
+Release the specified job. Valid options are
+
+=over
+
+=item priority
+
+New priority to assign to the job
+
+=item delay
+
+An integer number of seconds to wait before putting the job in
+the ready queue. The job will be in the "delayed" state during this time
+
+=back
+
 =item B<bury ($id [, $options])>
+
+The bury command puts a job into the "buried" state. Buried jobs are put into a
+FIFO linked list and will not be touched by the server again until a client
+kicks them with the "kick" command.
+
+Valid options are
+
+=over
+
+=item priority
+
+New priority to assign to the job
+
+=back
 
 =item B<touch ($id)>
 
@@ -685,9 +760,16 @@ back to the original ttr value.
 
 =item B<watch ($tube)>
 
+Specifies a tube to add to the watch
+list. If the tube doesn't exist, it will be created
+
 =item B<ignore ($tube)>
 
+Stop watching C<$tube>
+
 =item B<watch_only (@tubes)>
+
+Watch only the list of given tube names
 
 =back
 
@@ -781,6 +863,11 @@ elapses before its state changes, it is considered to have timed out.
 
 =item *
 
+B<reserves> -
+The number of times this job has been reserved
+
+=item *
+
 B<timeouts> -
 The number of times this job has timed out during a reservation.
 
@@ -860,17 +947,17 @@ reserve command while watching this tube but not yet received a response.
 
 B<pause> -
 The number of seconds the tube has been paused for.
- 
+
 =item *
 
 B<cmd_pause_tube> -
 The cumulative number of pause-tube commands for this tube.
- 
+
 =item *
 
 B<pause_time_left> -
 The number of seconds until the tube is un-paused.
- 
+
 =back
 
 
@@ -1079,6 +1166,24 @@ seconds and microseconds.
 
 B<uptime> -
 The number of seconds since this server started running.
+
+=item *
+
+B<binlog_oldest_index> -
+The index of the oldest binlog file needed to
+store the current jobs
+
+=item *
+
+B<binlog_current_index> -
+The index of the current binlog file being
+written to. If binlog is not active this value will be 0
+
+=item *
+
+B<binlog_max_size> -
+The maximum size in bytes a binlog file is allowed
+to get before a new binlog file is opened
 
 =back
 
