@@ -1,3 +1,9 @@
+1.07 -- Tue Dec 18 09:41:22 CST 2012
+
+  * Update repository location
+  * Added support for new command, kick_job [Ian Docherty]
+  * Documentation update
+
 1.06 -- Fri Dec 11 11:00:10 CST 2009
 
   * Remove requirement of Error as we do not use it
