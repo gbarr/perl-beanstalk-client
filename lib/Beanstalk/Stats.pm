@@ -10,11 +10,11 @@ our $VERSION = "1.07";
 
 sub new {
   my $proto = shift;
-  my $href = shift;
+  my $href  = shift;
   bless $href, $proto;
 }
 
-sub DESTROY { } 
+sub DESTROY { }
 
 sub AUTOLOAD {
   (my $method = $AUTOLOAD) =~ s/.*:://;

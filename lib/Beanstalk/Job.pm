@@ -7,9 +7,7 @@ use base qw(Class::Accessor::Fast);
 
 our $VERSION = "1.07";
 
-__PACKAGE__->mk_accessors(
-  qw(id client buried reserved data error)
-);
+__PACKAGE__->mk_accessors(qw(id client buried reserved data error));
 
 sub stats {
   my $self = shift;
@@ -84,7 +82,7 @@ sub args {
 }
 
 sub tube {
-  my $self  = shift;
+  my $self = shift;
 
   my $stats = $self->{_stats} || $self->stats
     or return undef;
@@ -93,7 +91,7 @@ sub tube {
 }
 
 sub ttr {
-  my $self  = shift;
+  my $self = shift;
 
   my $stats = $self->{_stats} || $self->stats
     or return undef;
@@ -102,7 +100,7 @@ sub ttr {
 }
 
 sub priority {
-  my $self  = shift;
+  my $self = shift;
 
   my $stats = $self->{_stats} || $self->stats
     or return undef;

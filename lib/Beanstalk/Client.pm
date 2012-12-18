@@ -49,7 +49,7 @@ sub _interact {
   local $SIG{PIPE} = "IGNORE" unless $MSG_NOSIGNAL;
 
   my $debug = $self->debug;
-  warn $cmd ."\n" if $debug;
+  warn $cmd . "\n" if $debug;
 
   $cmd .= $CRLF;
   $cmd .= $data . $CRLF if defined $data;
@@ -75,7 +75,7 @@ READ: {
     if ($read) {
       if ($buffer =~ /^([^\015\012]+)\015\012/) {
         $self->{_recv_buffer} = substr($buffer, 2 + length($1));
-        warn $1,"\n" if $debug;
+        warn $1, "\n" if $debug;
         return split(' ', $1);
       }
       $offset += length $buffer;
@@ -113,7 +113,7 @@ READ: while ($more > 0) {
       return $self->disconnect;
     }
   }
-  warn substr($self->{_recv_buffer}, 0, $bytes),"\n" if $self->debug;
+  warn substr($self->{_recv_buffer}, 0, $bytes), "\n" if $self->debug;
   return substr($self->{_recv_buffer}, 0, $bytes);
 }
 
@@ -165,7 +165,7 @@ sub _peek {
 }
 
 sub __watching {
-  my $self = shift;
+  my $self     = shift;
   my $watching = $self->_watching;
   return $watching if $watching;
   $self->list_tubes_watched;
@@ -192,7 +192,7 @@ sub new {
 
 
 sub connect {
-  my $self   = shift;
+  my $self = shift;
   my $server = $self->server || "127.0.0.1";
 
   $server .= ":11300" unless $server =~ /:/;
@@ -212,7 +212,7 @@ sub connect {
   $self->socket($sock);
 
   my $was_watching = $self->_watching;
-  my $was_using = $self->_using;
+  my $was_using    = $self->_using;
 
   $self->list_tubes_watched;
   if ($was_watching) {
@@ -249,7 +249,7 @@ sub quit {
 
 sub put {
   my $self = shift;
-  my $opt  = shift || {};
+  my $opt = shift || {};
 
   my $pri   = exists $opt->{priority} ? $opt->{priority} : $self->priority;
   my $ttr   = exists $opt->{ttr}      ? $opt->{ttr}      : $self->ttr;
@@ -287,7 +287,7 @@ sub stats {
 
 sub stats_tube {
   my $self = shift;
-  my $tube = @_ ? shift: 'default';
+  my $tube = @_ ? shift : 'default';
   _interact_stats($self, "stats-tube $tube");
 }
 
@@ -300,7 +300,7 @@ sub stats_job {
 
 
 sub kick {
-  my $self  = shift;
+  my $self = shift;
   my $bound = shift || 1;
 
   my @resp = _interact($self, "kick $bound")
@@ -314,8 +314,8 @@ sub kick {
 
 
 sub kick_job {
-  my $self  = shift;
-  my $job   = shift;
+  my $self = shift;
+  my $job  = shift;
 
   my @resp = _interact($self, "kick-job $job")
     or return undef;
@@ -345,8 +345,8 @@ sub reserve {
   my $self    = shift;
   my $timeout = shift;
 
-  my $cmd     = defined($timeout) ? "reserve-with-timeout $timeout" : "reserve";
-  my @resp    = _interact($self, $cmd)
+  my $cmd = defined($timeout) ? "reserve-with-timeout $timeout" : "reserve";
+  my @resp = _interact($self, $cmd)
     or return undef;
 
   if ($resp[0] eq 'RESERVED') {
@@ -464,9 +464,9 @@ sub ignore {
 
 
 sub watch_only {
-  my $self = shift;
+  my $self     = shift;
   my $watching = $self->__watching or return undef;
-  my %watched = %$watching;
+  my %watched  = %$watching;
   my $ret;
   foreach my $watch (@_) {
     next if delete $watched{$watch};
@@ -508,16 +508,16 @@ sub list_tubes_watched {
   my $self = shift;
   my $ret = _interact_yaml_resp($self, "list-tubes-watched")
     or return;
-  $self->_watching( { map { ($_,1) } @$ret });
+  $self->_watching({map { ($_, 1) } @$ret});
   @$ret;
 }
 
 
 sub pause_tube {
-  my $self = shift;
-  my $tube = shift;
-  my $delay= shift || 0;
-  my @resp = _interact($self, "pause-tube $tube $delay")
+  my $self  = shift;
+  my $tube  = shift;
+  my $delay = shift || 0;
+  my @resp  = _interact($self, "pause-tube $tube $delay")
     or return undef;
   return 1 if $resp[0] eq 'PAUSED';
 
