@@ -13,11 +13,7 @@ Archive Network (CPAN). To find a CPAN site near you see:
 
 A git repository is available at
 
-    http://git.goingon.net/?p=Beanstalk-Client.git;a=summary
-
-You can clone the repository with
-
-  git clone git://git.goingon.net/Beanstalk-Client.git
+    https://github.com/gbarr/perl-beanstalk-client
 
 INSTALLATION
 
