@@ -12,8 +12,6 @@ use IO::Socket::INET;
 use Beanstalk::Job;
 use Beanstalk::Stats;
 
-our $VERSION = "1.07";
-
 # use namespace::clean;
 
 our $CRLF = "\015\012";
