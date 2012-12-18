@@ -1244,7 +1244,7 @@ beanstalkd
 
 =head1 SEE ALSO
 
-http://xph.us/software/beanstalkd/
+http://kr.github.com/beanstalkd/
 
 L<Beanstalk::Pool>, L<Beanstalk::Job>, L<Beanstalk::Stats>
 
@@ -1260,11 +1260,19 @@ Graham Barr <gbarr@pobox.com>
 
 =item * Rhesa Rozendaal
 
+=item * Ian Docherty
+
 =back
+
+=head1 BUGS
+
+The Git repository is available at http://github.com/gbarr/perl-beanstalk-client
+
+Please report any bugs or feature requests to the issue tracker at http://github.com/gbarr/perl-beanstalk-client/issues
 
 =head1 COPYRIGHT
 
-Copyright (C) 2008 by Graham Barr.
+Copyright (C) 2008-2012 by Graham Barr.
 
 This program is free software; you can redistribute it and/or modify it under
 the same terms as Perl itself.
