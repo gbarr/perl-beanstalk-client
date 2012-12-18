@@ -313,6 +313,20 @@ sub kick {
 }
 
 
+sub kick_job {
+  my $self  = shift;
+  my $job   = shift;
+
+  my @resp = _interact($self, "kick-job $job")
+    or return undef;
+
+  return 1 if $resp[0] eq 'KICKED';
+
+  $self->error(join ' ', @resp);
+  return undef;
+}
+
+
 sub use {
   my $self = shift;
   my $tube = shift;
@@ -819,6 +833,16 @@ The kick command applies only to the currently used tube. It moves jobs into
 the ready queue. If there are any buried jobs, it will only kick buried jobs.
 Otherwise it will kick delayed jobs. The server will not kick more than C<$bound>
 jobs. Returns the number of jobs kicked, or undef if there was an error.
+
+=item B<kick_job ($id)>
+
+The kick-job command is a variant of kick that operats with a single job
+identified by its job id. If the given job id exists and is in a buried or
+delayed state, it will be moved to the ready queue of the same tube where it
+currently belongs. Returns C<undef> on error.
+
+Note: the kick_job command was only introduced on version 1.8 of beanstalk. If you
+have a version of beanstalk prior to this then the command will return an error.
 
 =item B<stats_job ($id)>
 
