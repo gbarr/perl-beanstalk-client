@@ -1235,7 +1235,7 @@ Returns true on success and C<undef> on error.
 
 More tests
 
-=head1 ACKNOWLEDGEMTS
+=head1 ACKNOWLEDGEMENTS
 
 Large parts of this documention were lifted from the documention that comes with
 beanstalkd
