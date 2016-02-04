@@ -961,14 +961,29 @@ The cumulative count of jobs created in this tube.
 
 =item *
 
+B<current_using> -
+The number of open connections that are currently using this tube.
+
+=item *
+
 B<current_waiting> -
 The number of open connections that have issued a
 reserve command while watching this tube but not yet received a response.
 
 =item *
 
+B<current_watching> -
+The number of open connections that are currently watching this tube.
+
+=item *
+
 B<pause> -
 The number of seconds the tube has been paused for.
+
+=item *
+
+B<cmd_delete> -
+The cumulative number of delete commands for this tube.
 
 =item *
 
